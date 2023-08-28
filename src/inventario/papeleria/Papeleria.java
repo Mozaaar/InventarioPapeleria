@@ -6,7 +6,7 @@ package inventario.papeleria;
 
 /**
  *
- * @author cf2065la
+ * @author cf2065la 
  */
 public class Papeleria {
   

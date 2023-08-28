@@ -22,16 +22,15 @@ public class Funciones extends BD {
 
         try {
             this.conexion();
-            PreparedStatement pst = this.conectar.prepareStatement("insert into articulos(Codigo, Producto,ExistenciInicial,Stock,ValorUnitario) values(?,?,?,?,?)");
-            pst.setInt(1, pal.getCodigo());
-            pst.setString(2, pal.getProducto());
-            pst.setInt(3, pal.getExistenciInicial());
+            PreparedStatement registro = this.conectar.prepareStatement("insert into articulos(Codigo, Producto,ExistenciInicial,Stock,ValorUnitario) values(?,?,?,?,?)");
+            registro.setInt(1, pal.getCodigo());
+            registro.setString(2, pal.getProducto());
+            registro.setInt(3, pal.getExistenciInicial());
+            registro.setInt(4, pal.getStock());
+            registro.setInt(5, pal.getValorUnitario());
 
-            pst.setInt(4, pal.getStock());
-            pst.setInt(5, pal.getValorUnitario());
-
-            pst.executeUpdate();
-            pst.close();
+            registro.executeUpdate();
+            registro.close();
             JOptionPane.showMessageDialog(null, "Registro exitoso");
 
         } catch (Exception e) {
@@ -60,9 +59,10 @@ public class Funciones extends BD {
             int nuevasSalidas = salidasActuales + pal.getSalida();
 
             // Verificar si hay suficiente stock para realizar la operación
-            PreparedStatement stockQuery = this.conectar.prepareStatement("SELECT Stock FROM articulos WHERE Codigo = ?");
-            stockQuery.setInt(1, pal.getCodigo());
-            ResultSet stockResult = stockQuery.executeQuery();
+            PreparedStatement stock = this.conectar.prepareStatement("SELECT Stock FROM articulos WHERE Codigo = ?");
+            stock.setInt(1, pal.getCodigo());
+            
+            ResultSet stockResult = stock.executeQuery();
 
             if (stockResult.next()) {
                 int stockActual = stockResult.getInt("Stock");
@@ -89,7 +89,7 @@ public class Funciones extends BD {
             }
 
             stockResult.close();
-            stockQuery.close();
+            stock.close();
             salidasResult.close();
             getSalidas.close();
 
@@ -126,10 +126,8 @@ public class Funciones extends BD {
 
                 ResultSet rs = pst.executeQuery();
 
-                if (rs.next()) {
-                    // Verificar si hay restricciones de referencia antes de eliminar
-                    // Implementa esta verificación según tu estructura de base de datos
-
+                if (rs.next()) {                                 
+                    
                     PreparedStatement deletePst = this.conectar.prepareStatement("DELETE FROM articulos WHERE codigo = ?");
                     deletePst.setInt(1, pal.getCodigo());
                     deletePst.executeUpdate();

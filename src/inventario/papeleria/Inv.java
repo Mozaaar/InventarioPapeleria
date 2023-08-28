@@ -24,18 +24,18 @@ public class Inv extends javax.swing.JFrame {
     public void mostrarEnJTable() {
 
         try {
-            Funciones fc = new Funciones();
+
             List<Papeleria> lista = fc.listar();
 
-            DefaultTableModel tableModel = new DefaultTableModel(
-                    new Object[]{"Codigo", "Producto", "ExistenciInicial", "Salidas", "Stock", "ValorUnitario"},
-                    0
+            DefaultTableModel table = new DefaultTableModel(
+                    new Object[]{"Codigo", "Producto", "ExistenciInicial", "Salidas", "Stock", "ValorUnitario"},0
+                    
             );
 
             for (Papeleria pa : lista) {
-                tableModel.addRow(new Object[]{pa.getCodigo(), pa.getProducto(), pa.getExistenciInicial(), pa.getSalida(), pa.getStock(), pa.getValorUnitario()});
+                table.addRow(new Object[]{pa.getCodigo(), pa.getProducto(), pa.getExistenciInicial(), pa.getSalida(), pa.getStock(), pa.getValorUnitario()});
             }
-            Jtable.setModel(tableModel);
+            Jtable.setModel(table);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar en la tabla: " + e.getMessage());
@@ -280,9 +280,6 @@ public class Inv extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(289, 289, 289)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(157, 157, 157)
                         .addComponent(BtnActualizar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -293,18 +290,21 @@ public class Inv extends javax.swing.JFrame {
                             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(107, 107, 107)
-                                .addComponent(btnLimpiar)))))
+                                .addComponent(btnLimpiar))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(342, 342, 342)
+                        .addComponent(jLabel1)))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addGap(25, 25, 25)
+                .addGap(31, 31, 31)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BtnActualizar)
+                .addComponent(BtnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(9, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -335,10 +335,7 @@ public class Inv extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNombreProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreProductoActionPerformed
-        //String sql="insert into papeleria(Producto) values(?)";
-        //try{
-
-        //}
+        
     }//GEN-LAST:event_txtNombreProductoActionPerformed
 
     private void txtUnidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUnidadesActionPerformed
@@ -371,7 +368,7 @@ public class Inv extends javax.swing.JFrame {
             pl.Codigo = Integer.parseInt(this.txtCodigo.getText());
             pl.Salida = Integer.parseInt(this.txtURetirar.getText());
             pl.setSalida(Integer.parseInt(this.txtURetirar.getText()));
-            Papeleria papeleria = new Papeleria(); // Crea un objeto Papeleria según tu lógica
+            
 
             fc.registrarsalida(pl);
             
